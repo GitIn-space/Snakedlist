@@ -5,21 +5,23 @@ using UnityEngine;
 
 namespace FG
 {
-    public class Pathfinder : MonoBehaviour
+    public class Pathfinder
     {
-        [SerializeField] private GameObject edge;
         [SerializeField] private Vector2Int dims = new Vector2Int(9, 6);
 
-        private Mygrid grid;
         private Transform[] edges = new Transform[4];
+        private static Mygrid grid;
 
-        private float Getdistance(Tile subject, Tile target)
+        static Pathfinder()
         {
-            return Vector2Int.Distance(subject.loc, target.loc);
+            grid = GameObject.Find("Controller").GetComponent<Mygrid>();
         }
 
-        public List<Vector2Int> Astar(Tile start, Tile goal)
-        { 
+        public static List<Vector2Int> Astar(Vector3 origin, Vector3 end)
+        {
+            Tile start = grid.Gettile(origin); 
+            Tile goal = grid.Gettile(end);
+
             Tile current = new Tile();
             List<Tile> open = new List<Tile>();
             List<Tile> closed = new List<Tile>();
@@ -73,27 +75,16 @@ namespace FG
                 path.Add(new Vector2Int(current.loc.x, current.loc.y));
                 current = current.parent;
             }
-            path.Add(new Vector2Int(start.loc.x, start.loc.y));
             path.Reverse();
+
+            grid.Resetastar();
+
             return path;
         }
 
-        private void Awake()
+        private static float Getdistance(Tile subject, Tile target)
         {
-            grid = new Mygrid(dims);
-
-            dims += Vector2Int.one;
-
-            edges[0] = Instantiate(edge, new Vector3(dims.x, 0, 0), Quaternion.identity).transform;
-            edges[0].localScale = new Vector3(1, dims.y * 2, 1);
-            edges[1] = Instantiate(edge, new Vector3(-dims.x, 0, 0), Quaternion.identity).transform;
-            edges[1].localScale = new Vector3(1, -dims.y * 2, 1);
-            edges[2] = Instantiate(edge, new Vector3(0, dims.y, 0), Quaternion.identity).transform;
-            edges[2].localScale = new Vector3(dims.x * 2, 1, 1);
-            edges[3] = Instantiate(edge, new Vector3(0, -dims.y, 0), Quaternion.identity).transform;
-            edges[3].localScale = new Vector3(-dims.x * 2, 1, 1);
-
-            dims -= Vector2Int.one;
+            return Vector2Int.Distance(subject.loc, target.loc);
         }
     }
 }

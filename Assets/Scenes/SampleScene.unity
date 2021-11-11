@@ -199,11 +199,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
+  m_Children:
+  - {fileID: 1228352477}
+  m_Father: {fileID: 1167279438}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1167279437
@@ -216,9 +217,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1167279438}
   - component: {fileID: 1167279442}
-  - component: {fileID: 1167279439}
   - component: {fileID: 1167279441}
+  - component: {fileID: 1167279439}
   - component: {fileID: 1167279440}
+  - component: {fileID: 1167279443}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -236,11 +238,26 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 519420032}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1167279439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167279437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368431f309d752d47ab745ed552499af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  edge: {fileID: 2042958606739242769, guid: 2dc6270f45295ed4e9cf94647d01cbc8, type: 3}
+  dims: {x: 18, y: 12}
+--- !u!114 &1167279440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,22 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyfab: {fileID: 8627529028458147372, guid: 5ff7bf45f4b176e43a6a85c72efac942, type: 3}
-  foodfab: {fileID: 498447233821517176, guid: 68aae0d0fcf50734ea9f5b2fc2c8f4e9, type: 3}
   snakefab: {fileID: 7944133464021441277, guid: 2b937b82fefda034ea7dda54cf09fcdd, type: 3}
---- !u!114 &1167279440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167279437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d647c52560957df4f88efd177a34e7fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  edge: {fileID: 2042958606739242769, guid: 2dc6270f45295ed4e9cf94647d01cbc8, type: 3}
-  dims: {x: 9, y: 6}
 --- !u!114 &1167279441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1531778535}
-  contr: {fileID: 1167279439}
 --- !u!114 &1167279442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +314,19 @@ MonoBehaviour:
   m_DefaultActionMap: New action map
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1167279443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167279437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97150d2de60256a4f98d12d143dac94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodfab: {fileID: 498447233821517176, guid: 68aae0d0fcf50734ea9f5b2fc2c8f4e9, type: 3}
 --- !u!1 &1228352473
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,8 +419,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1531778536}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -8,6 +8,7 @@ namespace FG
     {
         private Controls contr;
         private Snakecontroller snacon;
+        private Foodcontroller foocon;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -19,8 +20,9 @@ namespace FG
         {
             if (collision.CompareTag("Food"))
             {
-                snacon.Eat();
                 Destroy(collision.gameObject);
+                foocon.Respawn();
+                snacon.Eat();
             }
         }
 
@@ -28,6 +30,7 @@ namespace FG
         {
             contr = gameObject.GetComponentInParent<Controls>();
             snacon = gameObject.GetComponentInParent<Snakecontroller>();
+            foocon = gameObject.GetComponentInParent<Foodcontroller>();
         }
     }
 }

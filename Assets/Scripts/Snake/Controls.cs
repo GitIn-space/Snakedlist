@@ -8,7 +8,6 @@ namespace FG
     public class Controls : MonoBehaviour
     {
         [SerializeField] private GameObject text;
-        [SerializeField] private Snakecontroller contr;
 
         public void Pause()
         {
