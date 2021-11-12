@@ -47,11 +47,6 @@ namespace FG
                     ypos = q == 0 ? dims.y - 1 : q - 1;
 
                     grid[c, q].neighbours = new[] { grid[(c + 1) % dims.x, q], grid[xpos, q], grid[c, (q + 1) % dims.y], grid[c, ypos] };
-
-                    Debug.DrawLine(new Vector3(grid[c, q].loc.x, grid[c, q].loc.y), new Vector3(grid[(c + 1) % dims.x, q].loc.x, grid[(c + 1) % dims.x, q].loc.y), Color.cyan, 5f);
-                    Debug.DrawLine(new Vector3(grid[c, q].loc.x, grid[c, q].loc.y), new Vector3(grid[xpos, q].loc.x, grid[xpos, q].loc.y), Color.green, 5f);
-                    Debug.DrawLine(new Vector3(grid[c, q].loc.x, grid[c, q].loc.y), new Vector3(grid[c, (q + 1) % dims.y].loc.x, grid[c, (q + 1) % dims.y].loc.y), Color.red, 5f);
-                    Debug.DrawLine(new Vector3(grid[c, q].loc.x, grid[c, q].loc.y), new Vector3(grid[c, ypos].loc.x, grid[c, ypos].loc.y), Color.blue, 5f);
                 }
 
             gameObject.transform.position = new Vector3(dims.x / 2, dims.y / 2);

@@ -26,11 +26,11 @@ namespace FG
         private float snakeinterval = 1f;
         private float eaten = 1f;
 
-        public void Eat()
+        public void Eat(Vector3 destination)
         {
             snake.Insert(1, new Snakebody(Instantiate(bodyfab, new Vector3(Mathf.Round(snake[0].transform.position.x), Mathf.Round(snake[0].transform.position.y)), Quaternion.identity).transform));
             eaten++;
-            path = Pathfinder.Astar(snake[0].transform.position, GameObject.Find("Foodprefab(Clone)").transform.position);
+            path = Pathfinder.Astar(snake[0].transform.position, destination);
         }
 
         private IEnumerator Move()

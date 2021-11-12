@@ -8,9 +8,9 @@ namespace FG
     {
         [SerializeField] private GameObject foodfab;
 
-        public void Respawn()
+        public Vector3 Respawn()
         {
-            Instantiate(foodfab, new Vector2(Random.Range(0, 18), Random.Range(0, 12)), Quaternion.identity, transform);
+            return Instantiate(foodfab, new Vector2(Random.Range(0, 18), Random.Range(0, 12)), Quaternion.identity, transform).transform.position;
         }
 
         private void Awake()

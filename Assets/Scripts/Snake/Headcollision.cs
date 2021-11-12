@@ -21,8 +21,7 @@ namespace FG
             if (collision.CompareTag("Food"))
             {
                 Destroy(collision.gameObject);
-                foocon.Respawn();
-                snacon.Eat();
+                snacon.Eat(foocon.Respawn());
             }
         }
 
