@@ -17,15 +17,17 @@ namespace FG
             return grid[(int) pos.x, (int) pos.y];
         }
 
-        public void Resetastar()
+        public void Setobstacles(List<Vector3> obs)
         {
-            for(int c = 0; c < dims.x; c++)
-                for(int q = 0; q < dims.y; q++)
-                {
-                    grid[c, q].cost = 0;
-                    grid[c, q].costdistance = 0;
-                    grid[c, q].parent = null;
-                }
+            foreach (Vector3 each in obs)
+                grid[(int)each.x, (int)each.y].passable = false;
+        }
+
+        public void Resetobstacles(List<Vector3> obs)
+        {
+            foreach (Vector3 each in obs)
+                if(each.x <= dims.x && each.x >= 0 && each.y <= dims.y && each.y >= 0)
+                    grid[(int) each.x, (int) each.y].passable = true;
         }
 
         private void Awake()
@@ -36,7 +38,7 @@ namespace FG
 
             for (int c = 0; c < this.dims.x; c++)
                 for (int q = 0; q < this.dims.y; q++)
-                    grid[c, q] = new Tile(new Vector2Int(c, q), 1);
+                    grid[c, q] = new Tile(new Vector2Int(c, q), true);
 
             int xpos = 0;
             int ypos = 0;

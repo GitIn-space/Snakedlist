@@ -7,7 +7,7 @@ namespace FG
     public class Tile
     {
         public Vector2Int loc;
-        public int passable;
+        public bool passable;
         public Tile[] neighbours;
 
         public Tile parent;
@@ -18,7 +18,7 @@ namespace FG
         public Tile()
         {
             this.loc = Vector2Int.zero;
-            this.passable = 0;
+            this.passable = false;
             this.neighbours = new Tile[4];
 
             parent = null;
@@ -27,7 +27,7 @@ namespace FG
             costdistance = 0f;
         }
 
-        public Tile(Vector2Int loc, int passable)
+        public Tile(Vector2Int loc, bool passable)
         {
             this.loc = loc;
             this.passable = passable;

@@ -26,11 +26,18 @@ namespace FG
         private float snakeinterval = 1f;
         private float eaten = 1f;
 
-        public void Eat(Vector3 destination)
+        private Foodcontroller foocon;
+
+        public void Eat()
         {
-            snake.Insert(1, new Snakebody(Instantiate(bodyfab, new Vector3(Mathf.Round(snake[0].transform.position.x), Mathf.Round(snake[0].transform.position.y)), Quaternion.identity).transform));
+            snake.Insert(1, new Snakebody(Instantiate(bodyfab, new Vector3(snake[0].transform.position.x, snake[0].transform.position.y), Quaternion.identity).transform));
             eaten++;
-            path = Pathfinder.Astar(snake[0].transform.position, destination);
+
+            List<Vector3> obs = new List<Vector3>();
+            foreach (Snakebody each in snake)
+                obs.Add(each.transform.position);
+
+            path = Pathfinder.Astar(snake[0].transform.position, foocon.Spawn(obs), obs);
         }
 
         private IEnumerator Move()
@@ -45,6 +52,12 @@ namespace FG
                     foreach (Snakebody each in snake)
                         (each.transform.position, temp) = (temp, each.transform.position);
                 }
+                else
+                {
+                    temp = -(snake[1].transform.position - snake[0].transform.position);
+                    foreach (Snakebody each in snake)
+                        (each.transform.position, temp) = (temp, each.transform.position);
+                }
 
                 yield return new WaitForSeconds(snakeinterval / (eaten > 0f ? eaten + 1f / eaten : 1f));
             }
@@ -52,6 +65,8 @@ namespace FG
 
         private void Awake()
         {
+            foocon = gameObject.GetComponent<Foodcontroller>();
+
             snake.Add(new Snakebody(Instantiate(snakefab, transform.position, Quaternion.identity, transform).transform));
             pathfinder = new Pathfinder();
         }
@@ -61,6 +76,12 @@ namespace FG
             path = Pathfinder.Astar(snake[0].transform.position, GameObject.Find("Foodprefab(Clone)").transform.position);
 
             StartCoroutine(Move());
+        }
+
+        private void Update()
+        {
+            for (int c = 0; c < path.Count - 1; c++)
+                Debug.DrawLine(new Vector3(path[c].x, path[c].y), new Vector3(path[c + 1].x, path[c + 1].y), Color.green);
         }
     }
 }

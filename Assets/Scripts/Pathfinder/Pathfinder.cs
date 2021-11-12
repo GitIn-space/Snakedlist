@@ -17,7 +17,7 @@ namespace FG
             grid = GameObject.Find("Controller").GetComponent<Mygrid>();
         }
 
-        public static List<Vector2Int> Astar(Vector3 origin, Vector3 end)
+        public static List<Vector2Int> Astar(Vector3 origin, Vector3 end, List<Vector3> obs = null)
         {
             Tile start = grid.Gettile(origin); 
             Tile goal = grid.Gettile(end);
@@ -26,6 +26,9 @@ namespace FG
             List<Tile> open = new List<Tile>();
             List<Tile> closed = new List<Tile>();
             int cost = 0;
+
+            if (obs != null && obs.Count > 0)
+                grid.Setobstacles(obs);
 
             open.Add(start);
 
@@ -47,6 +50,9 @@ namespace FG
                 foreach (Tile neighbourtile in neighbours)
                 {
                     if (closed.FirstOrDefault(l => l.loc.x == neighbourtile.loc.x && l.loc.y == neighbourtile.loc.y) != null)
+                        continue;
+
+                    if (!neighbourtile.passable)
                         continue;
 
                     if (open.FirstOrDefault(l => l.loc.x == neighbourtile.loc.x && l.loc.y == neighbourtile.loc.y) == null)
@@ -77,7 +83,8 @@ namespace FG
             }
             path.Reverse();
 
-            grid.Resetastar();
+            if (obs != null && obs.Count > 0)
+                grid.Resetobstacles(obs);
 
             return path;
         }
