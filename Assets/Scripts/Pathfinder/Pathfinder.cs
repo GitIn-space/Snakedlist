@@ -17,7 +17,7 @@ namespace FG
             grid = GameObject.Find("Controller").GetComponent<Mygrid>();
         }
 
-        public static List<Vector2Int> Astar(Vector3 origin, Vector3 end, List<Vector3> obs = null)
+        public static List<Vector3> Astar(Vector3 origin, Vector3 end, List<Vector3> obs = null, bool nonempty = false)
         {
             Tile start = grid.Gettile(origin); 
             Tile goal = grid.Gettile(end);
@@ -75,10 +75,10 @@ namespace FG
                     }
                 }
             }
-            List<Vector2Int> path = new List<Vector2Int>();
+            List<Vector3> path = new List<Vector3>();
             while (current != start)
             {
-                path.Add(new Vector2Int(current.loc.x, current.loc.y));
+                path.Add(current.loc);
                 current = current.parent;
             }
             path.Reverse();
@@ -86,12 +86,16 @@ namespace FG
             if (obs != null && obs.Count > 0)
                 grid.Resetobstacles(obs);
 
+            if (nonempty && path.Count == 0)
+                return Astar(origin, end);
+
             return path;
         }
 
         private static float Getdistance(Tile subject, Tile target)
         {
-            return Vector2Int.Distance(subject.loc, target.loc);
+            //check neighbours for shortest and add one
+            return Vector3.Distance(subject.loc, target.loc);
         }
     }
 }

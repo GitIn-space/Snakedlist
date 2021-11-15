@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyfab: {fileID: 8627529028458147372, guid: 5ff7bf45f4b176e43a6a85c72efac942, type: 3}
   snakefab: {fileID: 7944133464021441277, guid: 2b937b82fefda034ea7dda54cf09fcdd, type: 3}
+  snakeinterval: 0.125
 --- !u!114 &1167279441
 MonoBehaviour:
   m_ObjectHideFlags: 0

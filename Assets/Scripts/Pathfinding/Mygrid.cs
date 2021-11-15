@@ -38,7 +38,7 @@ namespace FG
 
             for (int c = 0; c < this.dims.x; c++)
                 for (int q = 0; q < this.dims.y; q++)
-                    grid[c, q] = new Tile(new Vector2Int(c, q), true);
+                    grid[c, q] = new Tile(new Vector3(c, q), true);
 
             int xpos = 0;
             int ypos = 0;
