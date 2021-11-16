@@ -94,7 +94,6 @@ namespace FG
 
         private static float Getdistance(Tile subject, Tile target)
         {
-            //check neighbours for shortest and add one
             return Vector3.Distance(subject.loc, target.loc);
         }
     }

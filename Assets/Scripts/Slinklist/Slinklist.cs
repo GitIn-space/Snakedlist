@@ -62,15 +62,12 @@ namespace FG
             Listnode node = new Listnode(item);
 
             if (count == 0)
-            {
                 head = node;
-                tail = node;
-            }
+
             else
-            {
                 tail.next = node;
-                tail = node;
-            }
+
+            tail = node;
 
             count++;
         }
