@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FG
@@ -17,9 +15,9 @@ namespace FG
 
         public Tile()
         {
-            this.loc = Vector3.zero;
-            this.passable = false;
-            this.neighbours = new Tile[4];
+            loc = Vector3.zero;
+            passable = false;
+            neighbours = new Tile[4];
 
             parent = null;
             cost = 0f;

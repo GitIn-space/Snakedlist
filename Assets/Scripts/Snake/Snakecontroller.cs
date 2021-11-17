@@ -6,21 +6,11 @@ namespace FG
 {
     public class Snakecontroller : MonoBehaviour
     {
-        private class Snakebody
-        {
-            public Transform transform;
-
-            public Snakebody(Transform transform)
-            {
-                this.transform = transform;
-            }
-        }
-
         [SerializeField] private GameObject bodyfab;
         [SerializeField] private GameObject snakefab;
         [SerializeField] private float snakeinterval = 1f;
 
-        private Slinklist<Snakebody> snake = new Slinklist<Snakebody>();
+        private Slinklist<Transform> snake = new Slinklist<Transform>();
         private Pathfinder pathfinder;
         private List<Vector3> path = new List<Vector3>();
 
@@ -31,19 +21,19 @@ namespace FG
 
         public void Eat()
         {
-            snake.Insert(1, new Snakebody(Instantiate(bodyfab, snake[0].transform.position, Quaternion.identity).transform));
+            snake.Insert(1, Instantiate(bodyfab, snake[0].position, Quaternion.identity).transform);
             eaten++;
 
             List<Vector3> obs = Getobstacles();
             food = foocon.Spawn(obs);
-            path = Pathfinder.Astar(snake[0].transform.position, food, obs, true);
+            path = Pathfinder.Astar(snake[0].position, food, obs, true);
         }
 
         private List<Vector3> Getobstacles()
         {
             List<Vector3> obs = new List<Vector3>();
-            foreach (Snakebody each in snake)
-                obs.Add(each.transform.position);
+            foreach (Transform each in snake)
+                obs.Add(each.position);
 
             return obs;
         }
@@ -54,12 +44,12 @@ namespace FG
             while (true)
             {
                 if (path.Count == 0)
-                    path = Pathfinder.Astar(snake[0].transform.position, food, Getobstacles(), true);
+                    path = Pathfinder.Astar(snake[0].position, food, Getobstacles(), true);
 
                 temp = path[0];
                 path.RemoveAt(0);
-                foreach (Snakebody each in snake)
-                    (each.transform.position, temp) = (temp, each.transform.position);
+                foreach (Transform each in snake)
+                    (each.position, temp) = (temp, each.position);
 
                 yield return new WaitForSeconds(snakeinterval);
             }
@@ -69,22 +59,17 @@ namespace FG
         {
             foocon = gameObject.GetComponent<Foodcontroller>();
 
-            snake.Add(new Snakebody(Instantiate(snakefab, transform.position, Quaternion.identity, transform).transform));
+            snake.Add(Instantiate(snakefab, transform.position, Quaternion.identity, transform).transform);
             pathfinder = new Pathfinder();
         }
 
         private void Start()
         {
-            food = GameObject.Find("Foodprefab(Clone)").transform.position;
+            food = foocon.Spawn(Getobstacles());
+
             path = Pathfinder.Astar(snake[0].transform.position, food);
 
             StartCoroutine(Move());
-        }
-
-        private void Update()
-        {
-            for (int c = 0; c < path.Count - 1; c++)
-                Debug.DrawLine(new Vector3(path[c].x, path[c].y), new Vector3(path[c + 1].x, path[c + 1].y), Color.green);
         }
     }
 }

@@ -16,10 +16,5 @@ namespace FG
 
             return Instantiate(foodfab, foodpos, Quaternion.identity, transform).transform.position;
         }
-
-        private void Awake()
-        {
-            Instantiate(foodfab, new Vector2(Random.Range(0, 18), Random.Range(0, 12)), Quaternion.identity, transform);
-        }
     }
 }

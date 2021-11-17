@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 namespace FG
@@ -44,15 +43,12 @@ namespace FG
                 if (closed.FirstOrDefault(l => l.loc.x == goal.loc.x && l.loc.y == goal.loc.y) != null)
                     break;
 
-                List<Tile> neighbours = current.neighbours.ToList();
+                List<Tile> neighbours = current.neighbours.Where(l => l.passable).ToList();
                 cost++;
 
                 foreach (Tile neighbourtile in neighbours)
                 {
                     if (closed.FirstOrDefault(l => l.loc.x == neighbourtile.loc.x && l.loc.y == neighbourtile.loc.y) != null)
-                        continue;
-
-                    if (!neighbourtile.passable)
                         continue;
 
                     if (open.FirstOrDefault(l => l.loc.x == neighbourtile.loc.x && l.loc.y == neighbourtile.loc.y) == null)
