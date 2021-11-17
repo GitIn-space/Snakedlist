@@ -90,7 +90,7 @@ namespace FG
         public void CopyTo(T[] target, int index)
         {
             if (index >= count || index < 0 || target == null)
-                return;
+                throw new IndexOutOfRangeException();
 
             int i = 0;
             int f = 0;
@@ -114,7 +114,7 @@ namespace FG
         public void Insert(int index, T item)
         {
             if (index < 0 || index > count)
-                return;
+                throw new IndexOutOfRangeException();
 
             if (index == count)
             {
@@ -153,7 +153,7 @@ namespace FG
         public void RemoveAt(int index)
         {
             if (index < 0 || index >= count)
-                return;
+                throw new IndexOutOfRangeException();
 
             int i = 0;
             for (Listnode c = head, trail = head; c != null; trail = c, c = c.next, i++)
