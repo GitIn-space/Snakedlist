@@ -34,7 +34,7 @@ namespace FG
             while (open.Count > 0)
             {
                 float lowest = open.Min(l => l.costdistance);
-                current = open.First(l => l.costdistance == lowest);
+                current = open.First(l => l.costdistance == open.Min(l => l.costdistance));
 
                 closed.Add(current);
 
